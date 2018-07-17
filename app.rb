@@ -53,6 +53,19 @@ patch('/survey/:id/edit') do
   erb(:survey_edit)
 end
 
+delete('/survey/:id/edit') do
+  @survey = Survey.find(params.fetch(:id))
+  question = Question.find(params.fetch('select-question').to_i)
+  question.destroy
+  erb(:survey_edit)
+end
+
+post('/survey/:id/edit') do
+  @survey = Survey.find(params.fetch(:id))
+  question = @survey.questions.create({:description => params.fetch('new_question'), :question_type => 'text'})
+  erb(:survey_edit)
+end
+
 get('/survey/all') do
   @surveys = Survey.all
   erb(:all_surveys)
