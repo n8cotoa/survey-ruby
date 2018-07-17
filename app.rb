@@ -29,11 +29,28 @@ post('/survey/:id') do
   @num_of_questions = params.fetch('num_of_questions').to_i
   x = 1
   until x > @num_of_questions do
-    description = params.fetch('question' + x)
-    @survey.question.create({:description => description, :question_type => 'text'})
+    description = params.fetch('question' + x.to_s)
+    @survey.questions.create({:description => description, :question_type => 'text'})
     x += 1
   end
   erb(:survey_added)
+end
+
+get('/survey/:id/edit') do
+  @survey = Survey.find(params.fetch(:id))
+  erb(:survey_edit)
+end
+
+patch('/survey/:id/edit') do
+  @survey = Survey.find(params.fetch(:id))
+  @num_of_questions = @survey.questions.count
+  x = 1
+  @survey.questions.each do |question|
+    new_description = params.fetch("new_description" + x.to_s)
+    question.update({:description => new_description})
+    x += 1
+  end
+  erb(:survey_edit)
 end
 
 get('/survey/all') do
