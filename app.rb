@@ -19,18 +19,27 @@ end
 
 post('/survey/create') do
   title = params.fetch('title')
-  @num_of_questions = params.fetch('num_of_questions').to_i
+  @num_of_text_questions = params.fetch('num_of_text_questions').to_i
+  @num_of_radio_questions = params.fetch('num_of_radio_questions').to_i
+  @num_of_checkbox_questions = params.fetch('num_of_checkbox_questions').to_i
   @survey = Survey.create({:title => title})
   erb(:create)
 end
 
 post('/survey/create/:id') do
   @survey = Survey.find(params.fetch(:id))
-  @num_of_questions = params.fetch('num_of_questions').to_i
+  @num_of_text_questions = params.fetch('num_of_text_questions').to_i
+  @num_of_radio_questions = params.fetch('num_of_radio_questions').to_i
   x = 1
-  until x > @num_of_questions do
+  until x > @num_of_text_questions do
     description = params.fetch('question' + x.to_s)
     @survey.questions.create({:description => description, :question_type => 'text'})
+    x += 1
+  end
+  until x > @num_of_text_questions + @num_of_radio_questions do
+    description = params.fetch('question' + x.to_s)
+    choices = params.fetch('question' + x.to_s + 'choices')
+    @survey.questions.create({:description => description, :question_type => 'radio', :question_choices => choices})
     x += 1
   end
   erb(:survey_added)

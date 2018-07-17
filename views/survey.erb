@@ -4,10 +4,20 @@
 
 <form action="/survey/success" method="post">
   <% @survey.questions.each do |question| %>
-    <div class="form-group">
-      <label for="question<%= question.id %>"><%= question.description %></label>
-      <input type="text" id="question<%= question.id %>" class="form-control">
-    </div>
+    <% if question.question_type == 'text' %>
+      <div class="form-group">
+        <label for="question<%= question.id %>"><%= question.description %></label>
+        <input type="text" id="question<%= question.id %>" class="form-control">
+      </div>
+    <% else %>
+      <div class="form-group">
+        <label for="question<%= question.id%>"><%= question.description %></label>
+        <% question.choices.each do |choice| %>
+          <input type="radio" name="question<%= question.id%>choice" value="<%=choice%>">
+          <label><%= choice %></label>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
   <button type="submit">Submit</button>
 </form>

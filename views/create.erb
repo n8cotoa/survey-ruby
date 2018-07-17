@@ -1,14 +1,30 @@
 <h3><%= @survey.title %></h3>
 
 <form action="/survey/create/<%= @survey.id %>" method="post">
-  <input type="hidden" name="num_of_questions" value="<%= @num_of_questions %>">
+  <input type="hidden" name="num_of_text_questions" value="<%= @num_of_text_questions %>">
+  <input type="hidden" name="num_of_radio_questions" value="<%= @num_of_radio_questions %>">
+  <input type="hidden" name="num_of_checkbox_questions" value="<%= @num_of_checkbox_questions %>">
   <% x = 1 %>
-  <% until x > @num_of_questions do %>
+  <% until x > @num_of_text_questions do %>
   <div class="form-group">
       <label for="question<%=x%>">Enter Question <%=x%></label>
       <input id="question<%=x%>" type="text" name="question<%=x%>" class="form-control">
   </div>
   <% x += 1 %>
+  <% end %>
+
+  <% until x > @num_of_text_questions + @num_of_radio_questions do %>
+    <div class="form-group">
+      <label for="quesion<%= x %>">Enter Question <%= x %></label>
+      <input type="text" name="question<%= x %>" class="form-control">
+      <% i = 1 %>
+      <h4>Enter the four possible choices for this question</h4>
+      <% while i <= 4 do %>
+        <input type="text" name="question<%= x %>choices[]">
+        <% i += 1 %>
+      <% end %>
+    </div>
+    <% x += 1 %>
   <% end %>
   <button type="submit">Add Questions</button>
 </form>
