@@ -3,6 +3,8 @@ require('rspec')
 require('pg')
 require('sinatra/activerecord')
 require('survey')
+require('question')
+require('user')
 require('pry')
 
 RSpec.configure do |config|
@@ -12,6 +14,9 @@ RSpec.configure do |config|
     end
     Question.all.each do |question|
       question.destroy()
+    end
+    User.all.each do |user|
+      user.destroy
     end
   end
 end

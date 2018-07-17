@@ -1,0 +1,14 @@
+<h3><%= @survey.title %></h3>
+
+<form action="/survey/<%= @survey.id %>" method="post">
+  <input type="hidden" name="num_of_questions" value="<%= @num_of_questions %>">
+  <% x = 1 %>
+  <% until x > @num_of_questions do %>
+  <div class="form-group">
+      <label for="question<%=x%>">Enter Question <%=x%></label>
+      <input id="question<%=x%>" type="text" name="question<%=x%>" class="form-control">
+  </div>
+  <% x += 1 %>
+  <% end %>
+  <button type="submit">Add Questions</button>
+</form>

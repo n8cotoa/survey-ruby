@@ -1,0 +1,13 @@
+<h3>Take a survey!</h3>
+
+<% if @surveys.any? %>
+  Click to take a survey:
+  <ul>
+    <% @surveys.each do |survey| %>
+    <li><a href="/survey/<%= survey.id %>"><%= survey.title %></a></li>
+    <% end %>
+  </ul>
+
+<% else %>
+  <p>There are currently no surveys.</p>
+<% end %>
