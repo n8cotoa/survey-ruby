@@ -1,0 +1,13 @@
+<h3><%= @survey.title %></h3>
+
+<a href="/survey/<%= @survey.id %>/edit"><span class="btn btn-warning">Edit Survey</span></a>
+
+<form action="/survey/success" method="post">
+  <% @survey.questions.each do |question| %>
+    <div class="form-group">
+      <label for="question<%= question.id %>"><%= question.description %></label>
+      <input type="text" id="question<%= question.id %>" class="form-control">
+    </div>
+  <% end %>
+  <button type="submit">Submit</button>
+</form>

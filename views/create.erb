@@ -1,6 +1,6 @@
 <h3><%= @survey.title %></h3>
 
-<form action="/survey/<%= @survey.id %>" method="post">
+<form action="/survey/create/<%= @survey.id %>" method="post">
   <input type="hidden" name="num_of_questions" value="<%= @num_of_questions %>">
   <% x = 1 %>
   <% until x > @num_of_questions do %>

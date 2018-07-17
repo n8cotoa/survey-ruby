@@ -25,10 +25,13 @@
       <button type="submit">Delete Question</button>
     </div>
   </form>
-
-
 <form action="/survey/<%= @survey.id %>/edit" method="post">
   <label for="new_question">Add a Question?</label>
   <input type="text" name="new_question">
   <button type="submit">Add</button>
+</form>
+<form action="/" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="hidden" name="survey_id" value="<%= @survey.id %>">
+  <button type="submit" class="btn btn-danger">Delete Survey</button>
 </form>

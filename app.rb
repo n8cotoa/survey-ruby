@@ -24,7 +24,7 @@ post('/survey/create') do
   erb(:create)
 end
 
-post('/survey/:id') do
+post('/survey/create/:id') do
   @survey = Survey.find(params.fetch(:id))
   @num_of_questions = params.fetch('num_of_questions').to_i
   x = 1
@@ -69,4 +69,15 @@ end
 get('/survey/all') do
   @surveys = Survey.all
   erb(:all_surveys)
+end
+
+get('/survey/:id') do
+  @survey = Survey.find(params.fetch(:id))
+  erb(:survey)
+end
+
+delete('/') do
+  @survey = Survey.find(params.fetch('survey_id'))
+  @survey.destroy
+  erb(:index)
 end
